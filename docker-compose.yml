@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/task_manager?authSource=admin
+      - JWT_SECRET=supersecretjwtkey
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+    networks:
+      - task_manager_net
+
+  mongo:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+      - MONGO_INITDB_DATABASE=task_manager
+      - MONGO_INITDB_USER=taskManagerUser
+      - MONGO_INITDB_PASSWORD=supersecretpassword
+    ports:
+      - "27017:27017"
+    networks:
+      - task_manager_net
+
+networks:
+  task_manager_net:
+    driver: bridge
