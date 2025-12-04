@@ -8,12 +8,12 @@ const PORT = process.env.PORT || 5000;
 
 (async () => {
     try {
-        await connectDB();  // Connect to the DB
+        await connectDB();
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
     } catch (err) {
         console.error('Failed to start server:', err.message);
-        process.exit(1);  // Exit the process with failure status
+        process.exit(1);
     }
 })();
